@@ -1,0 +1,193 @@
+# ---------------------------------------------------------------
+# Job automation config - Phase 0/1 (collect + raw data + dedupe)
+# ---------------------------------------------------------------
+timezone: Asia/Kolkata
+
+search:
+  hours_old: 72                 # only jobs posted in the last 72 hours
+  results_per_query: 60         # per (site x term x location); lower = fewer blocks
+  locations: ["India"]          # PAN India. Add cities here to widen, e.g. "Indore", "Pune"
+  delay_seconds: [6, 14]        # random pause between scraper calls (avoids blocks)
+  max_retries: 3
+  ats_include_backlog: true     # career-page jobs older than 72h are listed once (first sighting)
+  terms:
+    # Product
+    - "Product Associate"
+    - "Product Analyst"
+    - "Associate Product Manager"
+    # Support / RCA / SRE
+    - "Technical Support Engineer"
+    - "Product Support"
+    - "Application Support Engineer"
+    - "Production Support"
+    - "Site Reliability Engineer"
+    # Implementation / Customer Success
+    - "Implementation Specialist"
+    - "Implementation Consultant"
+    - "Customer Success Manager"
+    # Performance
+    - "Performance Engineer"
+    - "Performance Test Engineer"
+    # Domain (your resume's strongest keyword)
+    - "Order Management"
+
+sites: [linkedin, indeed, naukri]
+
+sheet:
+  spreadsheet_id_env: SHEET_ID          # read from .env
+  spreadsheet_name: "Job Tracker"       # used only if SHEET_ID is empty
+  credentials_file: credentials/service_account.json
+  max_description_chars: 30000          # Google Sheets cell limit is 50,000
+
+# Reusable answers for application forms (written to the CONFIG tab; used in Phase 4)
+answers:                    # fill these in (copied to config.yaml on first run)
+  Full Name: ""
+  Email: ""
+  Phone: ""
+  LinkedIn: ""
+  Current Location: ""
+  Notice Period: ""
+  Current CTC: ""
+  Expected CTC: ""
+  Current Company: ""
+  Current Title: ""
+  How did you hear about us: "LinkedIn"
+
+# Company career pages (ATS boards). The slugs below are STARTER GUESSES and
+# are NOT verified. Run:  python run.py check-ats
+# Boards that 404 are skipped with a warning, so wrong slugs are harmless.
+# A slug is the part of the careers URL, e.g. jobs.lever.co/<slug>.
+ats:
+  greenhouse:
+    - {slug: postman, name: Postman}
+  lever:
+    - {slug: cred, name: CRED}
+    - {slug: meesho, name: Meesho}
+  ashby: []
+  smartrecruiters: []
+
+# ---------------- Phase 2: shortlist + tailored resumes ----------------
+shortlist:
+  daily_target: 20          # aim for this many shortlisted jobs per day
+  minimum: 15               # warn if fewer than this qualify (filters relax tier by tier)
+  pool_days: 7              # jobs found in the last N days that are not shortlisted yet
+  min_per_source: 3         # each source (linkedin/indeed/naukri/career pages) gets at least this many picks if available
+  excluded_companies: []    # e.g. ["Some Staffing Pvt Ltd"]
+
+resume:
+  profile_file: profile/master_profile.yaml
+  output_dir: output
+  max_pages: 2
+
+llm:                        # free tiers; used in rotation, skipped if its key is not in .env
+  min_interval_seconds: 4
+  providers:
+    - {name: gemini, model: gemini-flash-latest, key_env: GEMINI_API_KEY}
+    - {name: groq, model: llama-3.3-70b-versatile, key_env: GROQ_API_KEY}
+    - {name: openrouter, model: "meta-llama/llama-3.3-70b-instruct:free", key_env: OPENROUTER_API_KEY}
+
+# ---------------- Phase 3: daily sheet tab + recruiter contacts ----------------
+apply:                      # Phase 4 - auto-apply on company career pages (Greenhouse/Lever/Ashby/...)
+  auto_enabled: false       # true = `run` applies automatically; false = jobs stay "Manual Apply Needed"
+  dry_run: true             # true = fill forms but NEVER submit. Set false only after a clean dry run
+  headless: true            # false = show the browser window
+  max_per_day: 25
+  delay_seconds: [15, 40]   # pause between applications
+  timeout_seconds: 120      # per job
+  pending_days: 2           # also retry jobs shortlisted in the last N days
+  qa_rules: []              # your own answers: - ["regex on the question", "answer"]
+
+people:                     # LinkedIn recruiter lookup (OFF: too risky)
+  enabled: false
+  headless: true            # set false if LinkedIn keeps asking for verification
+  max_per_day: 20           # keep low: LinkedIn discourages automation
+  delay_seconds: [10, 25]
+
+ats_candidates:      # `python run.py find-boards` probes these on Greenhouse/Lever/Ashby/SmartRecruiters
+  - Zoho
+  - Freshworks
+  - Chargebee
+  - Razorpay
+  - Postman
+  - BrowserStack
+  - Zeta
+  - Groww
+  - Zerodha
+  - Swiggy
+  - Zomato
+  - PhonePe
+  - Paytm
+  - CRED
+  - Meesho
+  - Flipkart
+  - Myntra
+  - Nykaa
+  - Lenskart
+  - Urban Company
+  - Dream11
+  - Dunzo
+  - Delhivery
+  - Shiprocket
+  - Unicommerce
+  - Increff
+  - Vinculum
+  - Browserstack
+  - Clevertap
+  - MoEngage
+  - WebEngage
+  - Netcore
+  - Gupshup
+  - Exotel
+  - Yellow.ai
+  - Haptik
+  - Uniphore
+  - Observe.AI
+  - Sprinklr
+  - Whatfix
+  - Zenoti
+  - Darwinbox
+  - Keka
+  - Leadsquared
+  - Capillary
+  - Innovaccer
+  - Mindtickle
+  - Hasura
+  - Atlan
+  - Rudderstack
+  - Setu
+  - Juspay
+  - Cashfree
+  - Pine Labs
+  - Slice
+  - Jupiter
+  - Fi Money
+  - Khatabook
+  - OkCredit
+  - Licious
+  - Rapido
+  - Ola
+  - Vedantu
+  - Unacademy
+  - PhysicsWallah
+  - upGrad
+  - Cars24
+  - Spinny
+  - Pepperfry
+  - Bigbasket
+  - Mamaearth
+  - Postman Inc
+  - Thoughtspot
+  - Druva
+  - Icertis
+  - Amagi
+  - Ather Energy
+  - Shopify
+  - Atlassian
+  - Twilio
+  - Elastic
+  - Okta
+  - Stripe
+  - Gitlab
+  - Docusign
+  - Coinswitch
+  - CoinDCX

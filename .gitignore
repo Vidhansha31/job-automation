@@ -1,0 +1,13 @@
+.env
+credentials/
+data/
+logs/
+.venv/
+__pycache__/
+*.pyc
+output/
+.pytest_cache/
+# personal files - never commit
+config.yaml
+profile/master_profile.yaml
+profile/my_answers.yaml

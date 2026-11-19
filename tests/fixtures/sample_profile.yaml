@@ -1,0 +1,40 @@
+# Fictional profile used only by the tests.
+name: Asha Rao
+contact: {phone: "+91 0000000000", email: asha@example.com, linkedin: linkedin.com/in/example/, location: "Pune, Maharashtra, India"}
+start_date: "2024-01"
+headlines:
+  default: "Customer Support | Order Management | Enterprise SaaS"
+  support: "Customer Support | Order Management | Enterprise SaaS"
+  product: "Product Associate | Order Management | Enterprise SaaS"
+  implementation: "Implementation Support | Order Management | Enterprise SaaS"
+  csm: "Customer Success | Order Management | Enterprise SaaS"
+  performance: "Product Associate | Performance Testing | Enterprise SaaS"
+  ba: "Business Analysis | Order Management | Enterprise SaaS"
+summary: "Customer support and order management professional with enterprise SaaS experience, coordinating functional solutions for customer issues and supporting production releases for enterprise clients."
+competencies:
+  - category: Customer Support
+    primary: [Customer Support, Order Management, Issue Resolution, Client Communication]
+    secondary: [Product Adoption, User Stories]
+  - category: Technical
+    primary: [SQL, APIs, JSON]
+    secondary: [Data Models]
+  - category: Tools & Platforms
+    primary: [Jira, Confluence, Microsoft Excel]
+    secondary: [AWS]
+extra_skills:
+  - {skill: JMeter, category: Technical, triggers: [jmeter, performance testing, load testing]}
+experience:
+  title: Product Associate
+  company: Example Corp
+  bullets:
+    - {id: b1, text: "**Handled queries from 8+ enterprise clients,** gathered business requirements and coordinated functional solutions for order management customers."}
+    - {id: b2, text: "**Wrote 100+ user stories** for order management and inventory workflows in Jira."}
+    - {id: b3, text: "**Worked with QA and engineering** to resolve customer issues through production release."}
+    - {id: b4, text: "**Supported product adoption** for enterprise SaaS clients using SQL and APIs."}
+  extra_bullets:
+    - {id: x1, text: "**Ran JMeter performance tests** before releases.", triggers: [jmeter, performance testing, load testing]}
+project: {name: Sample Project, role: Product Owner, text: "Built a sample order tracking tool."}
+achievements: ["**Promoted** for delivery performance."]
+education:
+  - {qualification: "Bachelor of Computer Applications (BCA)", institute: "Example University", period: "2020–2023", result: "8.0/10"}
+certifications: ["**Sample Certification** — Example Issuer"]

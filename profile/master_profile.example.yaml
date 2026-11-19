@@ -1,0 +1,73 @@
+# =====================================================================
+# MASTER PROFILE - the single source of truth for every tailored resume.
+# Copy this file to master_profile.yaml and replace every value with your own.
+#
+# The tailoring step may only REORDER and REPHRASE what is written here.
+# It can never add a tool, number, employer, title or certification that is
+# not in this file:
+#   * anything you add here can appear on resumes
+#   * anything missing here will never appear
+# Items under "extra_*" are shown only when the job description asks for them.
+# =====================================================================
+name: Your Name
+contact:
+  phone: "+91 0000000000"
+  email: you@example.com
+  linkedin: linkedin.com/in/your-profile/
+  location: City, State, India
+
+start_date: "2024-01"        # month you started your current job; used to compute years of experience
+
+# Line under your name, picked by the job's role family. Edit freely.
+headlines:
+  default: "Your Role | Your Domain | Your Industry"
+  support: "Customer Support | Your Domain | Your Industry"
+  product: "Product Associate | Your Domain | Your Industry"
+  implementation: "Implementation Support | Your Domain | Your Industry"
+  csm: "Customer Success | Your Domain | Your Industry"
+  performance: "Performance Testing | Your Domain | Your Industry"
+  ba: "Business Analysis | Your Domain | Your Industry"
+
+summary: "Two or three sentences about your experience."
+
+competencies:
+  - category: Customer Support
+    primary: [Skill A, Skill B]
+    secondary: [Skill C]
+  - category: Technical
+    primary: [SQL, APIs]
+    secondary: [JSON]
+  - category: Tools & Platforms
+    primary: [Jira, Confluence]
+    secondary: [Excel]
+
+# Skills not on your base CV. Shown only if the JD mentions one of the triggers.
+extra_skills:
+  - {skill: JMeter, category: Technical, triggers: [jmeter, performance testing, load testing]}
+
+experience:
+  title: Your Job Title
+  company: Your Company
+  bullets:
+    - id: b1
+      text: "**What you did,** and the result."
+    - id: b2
+      text: "**Another achievement** with a number if you have one."
+  extra_bullets:       # shown only when the JD asks for it
+    - id: x1
+      text: "**An extra bullet** used only for matching jobs."
+      triggers: [jmeter, performance testing]
+
+project:
+  name: Project Name
+  role: Your Role
+  text: "One sentence about the project."
+
+achievements:
+  - "**An achievement** worth mentioning."
+
+education:
+  - {qualification: "Degree name", institute: "Institute, City", period: "2020–2023", result: "8.0/10"}
+
+certifications:
+  - "**Certification name** — Issuer"

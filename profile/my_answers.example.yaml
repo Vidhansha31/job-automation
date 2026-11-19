@@ -1,0 +1,6 @@
+# Your answers to application questions. Copy this file to my_answers.yaml.
+# New questions the bot could not answer are added below with an empty answer ("").
+# Fill the answer between the quotes and save. For multiple-choice questions write the answer
+# so it matches one of the options (e.g. "Yes" / "No"). Questions with an empty answer are ignored.
+# Wording does not have to be exact - similar questions on other sites match too.
+"Country": "India"
